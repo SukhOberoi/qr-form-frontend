@@ -47,7 +47,7 @@ const Form = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center p-4 bg-gray-100 min-h-dvh">
       <div className="w-full max-w-md p-4 bg-white rounded-md shadow-md">
         <h1 className="mb-4 text-2xl font-bold text-center">Sign up for Campus Quest 3.0</h1>
         {!qrCode ? (

@@ -12,6 +12,7 @@ const Form = () => {
     email: '',
     phone: '',
     whatsapp: '',
+    hackerrankId: '',
   });
   const [isSameAsPhone, setIsSameAsPhone] = useState(false);
   const [message, setMessage] = useState('');
@@ -131,11 +132,24 @@ const Form = () => {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">SRM Email ID</label>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="hackerrankId" className="block text-sm font-medium text-gray-700">HackerRank ID</label>
+              <input
+                type="text"
+                id="hackerrankId"
+                name="hackerrankId"
+                value={formData.hackerrankId}
                 onChange={handleChange}
                 required
                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"

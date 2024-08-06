@@ -1,6 +1,7 @@
 // src/components/Form.js
 import React, { useState } from 'react';
 import { TailSpin } from 'react-loader-spinner';
+import { FaInstagram } from "react-icons/fa6";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -187,6 +188,8 @@ const Form = () => {
           <div className="text-center">
             <p className="text-green-500">{message}</p>
             {qrCode && <img src={`data:image/png;base64,${qrCode}`} alt="QR Code" className="mx-auto mt-4" />}
+            <p>Follow our Instagram for updates</p>
+            <a href='https://www.instagram.com/srm_cn/' target='_blank'><div className='flex items-center justify-center text-xl text-pink-500'><FaInstagram /><p className='pb-1'>srm_cn</p></div></a>
           </div>
         )}
         {loading && (

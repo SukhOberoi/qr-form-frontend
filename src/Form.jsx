@@ -1,22 +1,45 @@
+// src/components/Form.js
 import React, { useState } from 'react';
-import { TailSpin } from 'react-loader-spinner'; // Import the loader
+import { TailSpin } from 'react-loader-spinner';
 
 const Form = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    registrationNo: '',
+    year: '',
+    department: '',
+    email: '',
+    phone: '',
+    whatsapp: '',
+  });
+  const [isSameAsPhone, setIsSameAsPhone] = useState(false);
   const [message, setMessage] = useState('');
   const [qrCode, setQrCode] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (name === 'phone' && isSameAsPhone) {
+      setFormData({ ...formData, phone: value, whatsapp: value });
+    }
+  };
+
+  const handleCheckboxChange = (e) => {
+    setIsSameAsPhone(e.target.checked);
+
+    if (e.target.checked) {
+      setFormData({ ...formData, whatsapp: formData.phone });
+    } else {
+      setFormData({ ...formData, whatsapp: '' });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loading) return; // Prevent multiple submissions
-
-    const formData = {
-      name: name,
-      email: email,
-    };
+    if (loading) return;
 
     setLoading(true);
     setMessage('');
@@ -40,14 +63,14 @@ const Form = () => {
       setQrCode(result.qrCode);
     } catch (error) {
       console.error('Error:', error);
-      setMessage(`Error: ${error.message}`);
+      setMessage('Error: ' + error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center p-4 bg-gray-100 min-h-dvh">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-4 bg-white rounded-md shadow-md">
         <h1 className="mb-4 text-2xl font-bold text-center">Sign up for Campus Quest 3.0</h1>
         {!qrCode ? (
@@ -57,22 +80,100 @@ const Form = () => {
               <input
                 type="text"
                 id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 required
                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-            </div>  
+            </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <label htmlFor="registrationNo" className="block text-sm font-medium text-gray-700">Registration No.</label>
+              <input
+                type="text"
+                id="registrationNo"
+                name="registrationNo"
+                value={formData.registrationNo}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="year" className="block text-sm font-medium text-gray-700">Year of Study</label>
+              <select
+                id="year"
+                name="year"
+                value={formData.year}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Year</option>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="department" className="block text-sm font-medium text-gray-700">Department</label>
+              <input
+                type="text"
+                id="department"
+                name="department"
+                value={formData.department}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">SRM Email ID</label>
               <input
                 type="email"
                 id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 required
                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+              <input
+                type="text"
+                id="whatsapp"
+                name="whatsapp"
+                value={formData.whatsapp}
+                onChange={handleChange}
+                required
+                disabled={isSameAsPhone}
+                className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${isSameAsPhone ? 'bg-gray-100' : ''}`}
+              />
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="sameAsPhone"
+                checked={isSameAsPhone}
+                onChange={handleCheckboxChange}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label htmlFor="sameAsPhone" className="ml-2 text-sm text-gray-700">Same as Phone Number</label>
             </div>
             <button
               type="submit"

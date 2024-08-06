@@ -132,7 +132,6 @@ const Form = () => {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">SRM Email ID</label>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 id="email"

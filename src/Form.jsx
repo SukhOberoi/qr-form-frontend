@@ -72,24 +72,24 @@ const Form = () => {
         throw new Error("Number has to be 10 digits.");
       }
 
-      // const response = await fetch(
-      //   "https://form-response-server-production.up.railway.app/submit-form",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(formData),
-      //   },
-      // );
+      const response = await fetch(
+        "https://form-response-server-production.up.railway.app/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        },
+      );
 
-      // const result = await response.json();
-      // if (!response.ok) {
-      //   throw new Error(result.message);
-      // }
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
 
-      // setMessage(result.message);
-      // setQrCode(result.qrCode);
+      setMessage(result.message);
+      setQrCode(result.qrCode);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error: " + error.message);

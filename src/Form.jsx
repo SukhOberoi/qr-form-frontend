@@ -4,6 +4,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { FaInstagram } from "react-icons/fa6";
 
 const Form = () => {
+  const event = "Campus Quest Epilogue: Code, Compete, Excel"
   const [formData, setFormData] = useState({
     name: '',
     registrationNo: '',
@@ -74,7 +75,7 @@ const Form = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-4 bg-white rounded-md shadow-md">
-        <h1 className="mb-4 text-2xl font-bold text-center">Sign up for Campus Quest 3.0</h1>
+        <h1 className="mb-4 text-2xl font-bold text-center">Sign up for {event}</h1>
         {!qrCode ? (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

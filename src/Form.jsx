@@ -83,7 +83,7 @@ const Form = () => {
       );
 
       if (response.status === 429) {
-        throw new Error(response.statusText);
+        throw new Error("Too many requests. Please try again later.");
       }
 
       const result = await response.json();
@@ -95,7 +95,8 @@ const Form = () => {
       setQrCode(result.qrCode);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error: " + error.message);
+      if (error.message) setMessage("Error: " + error.message);
+      else setMessage("Error: " + error);
     } finally {
       setLoading(false);
     }

@@ -82,10 +82,6 @@ const Form = () => {
         },
       );
 
-      if (response.status === 429) {
-        throw new Error(response.statusText);
-      }
-
       const result = response.json();
       if (!response.ok) {
         throw new Error(result.message);

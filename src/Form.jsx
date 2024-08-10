@@ -49,7 +49,6 @@ const Form = () => {
     setQrCode("");
 
     try {
-      console.log(registrationNo);
       const regNoRegex = /^RA\d{13}$/;
       if (!regNoRegex.test(formData.registrationNo)) {
         throw new Error(
@@ -72,18 +71,29 @@ const Form = () => {
         throw new Error("Number has to be 10 digits.");
       }
 
-      const response = await fetch(
-        "https://form-response-server-production.up.railway.app/submit-form",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      const response = await fetch("http://localhost:5000/submit-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(formData),
+      });
+      // const response = await fetch(
+      //   "https://form-response-server-production.up.railway.app/submit-form",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(formData),
+      //   },
+      // );
 
-      const result = await response.json();
+      if (response.status === 429) {
+        throw new Error(response.statusText);
+      }
+
+      const result = response.json();
       if (!response.ok) {
         throw new Error(result.message);
       }

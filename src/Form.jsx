@@ -71,23 +71,16 @@ const Form = () => {
         throw new Error("Number has to be 10 digits.");
       }
 
-      const response = await fetch("http://localhost:5000/submit-form", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://form-response-server-production.up.railway.app/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
-      // const response = await fetch(
-      //   "https://form-response-server-production.up.railway.app/submit-form",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(formData),
-      //   },
-      // );
+      );
 
       if (response.status === 429) {
         throw new Error(response.statusText);

@@ -8,7 +8,7 @@ export default function Closed() {
       <div className="w-full max-w-md p-4 text-center bg-white rounded-md shadow-md">
         <h1 className="text-2xl font-bold text-red-600">Submissions Closed</h1>
         <p className="my-4 text-gray-700">
-          We regret to inform you that the form submissions are now closed. Thank you for your interest in Campus Quest Epilogue: Code, Compete, Excel.
+          We regret to inform you that the form submissions are now closed. Thank you for your interest in Coding Ninjas Club SRM.
         </p>
         <div>
         <p>Follow our Instagram for updates</p>

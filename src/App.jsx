@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from './Form.jsx'
 import Closed from './Closed.jsx'
-import { Routes, Route, Switch } from "react-router-dom";
+import { Routes, Route, Switch, Redirect } from "react-router-dom";
 import Admin from './Admin.jsx';
 import RecruitmentPanel from "./components/RecruitmentPanel.jsx"
 import CQPanel from "./components/CQPanel.jsx"

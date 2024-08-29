@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 
 const CQPanel = () => {
@@ -35,13 +34,13 @@ const CQPanel = () => {
       return;
     }
 
+    setActiveTeamId(teamId);
     setLoadingMembers((prev) => ({ ...prev, [teamId]: true }));
 
     try {
       const response = await fetch(`https://form-response-server-production.up.railway.app/team/${teamId}`);
       const data = await response.json();
       setTeamMembers((prev) => ({ ...prev, [teamId]: data }));
-      setActiveTeamId(teamId);
     } catch (error) {
       console.error("Error fetching team members:", error);
     } finally {
@@ -66,7 +65,11 @@ const CQPanel = () => {
         )}
         {isAuthenticated && (
           <div>
-              <Link to="/admin" state={{ isAuthenticated: isAuthenticated }}><button className="px-4 py-2 my-2 font-semibold text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Back</button></Link>
+            <Link to="/admin" state={{ isAuthenticated: isAuthenticated }}>
+              <button className="px-4 py-2 my-2 font-semibold text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Back
+              </button>
+            </Link>
 
             <h1 className="p-2 mb-1 text-3xl font-bold text-center">CQ3.0 Registrations</h1>
             {loading ? (
@@ -94,12 +97,13 @@ const CQPanel = () => {
                             {teamMembers[team.id].map((member) => (
                               <li key={member.id} className="py-2">
                                 <strong>{member.name}</strong> <br/>
-                                <a href={`mailto:${member.email}`} target="_blank"> {member.email}</a><br/>
+                                <a href={`mailto:${member.email}`} target="_blank" rel="noopener noreferrer"> {member.email}</a><br/>
                                 {member.phoneNo}<br/>
                                 {member.regNo}<br/>
                                 {member.department}<br/>
-                                <a href={`https://wa.me/+91${member.phoneNo}`} target="_blank"><button className="w-1/2 px-4 py-2 my-2 font-semibold text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">WhatsApp</button></a><br/>
-                                
+                                <a href={`https://wa.me/+91${member.phoneNo}`} target="_blank" rel="noopener noreferrer">
+                                  <button className="w-1/2 px-4 py-2 my-2 font-semibold text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">WhatsApp</button>
+                                </a><br/>
                               </li>
                             ))}
                           </ul>

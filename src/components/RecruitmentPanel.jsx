@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import StatisticsBarChart from "./StatisticsBarChart.jsx";
 
 const RecruitmentPanel = () => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const RecruitmentPanel = () => {
   const [activeRecruitmentId, setActiveRecruitmentId] = useState(null);
   const [statistics, setStatistics] = useState({
     totalApplicants: 0,
-    domainCounts: {}
+    domainCounts: {Editorial:0}
   });
 
   useEffect(() => {
@@ -40,6 +41,9 @@ const RecruitmentPanel = () => {
           domainCounts[domain] = (domainCounts[domain] || 0) + 1;
         });
       }
+      if (!domainCounts["Editorial"]){
+        domainCounts["Editorial"] = 0;
+      }
     });
 
     setStatistics({
@@ -54,7 +58,7 @@ const RecruitmentPanel = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 bg-white rounded-lg shadow-lg w-[32rem]">
+      <div className="p-8 bg-white rounded-lg shadow-lg w-[42rem]">
         {!isAuthenticated && (
           <>
             <h1 className="mb-4 text-xl font-bold">
@@ -88,6 +92,7 @@ const RecruitmentPanel = () => {
                       ))}
                     </ul>
                   </div>
+                  <StatisticsBarChart stats = {statistics.domainCounts}/>
                 </div>
               )}
             </div>

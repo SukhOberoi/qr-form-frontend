@@ -13,10 +13,10 @@ export default function App() {
   return (
     <>
     <Routes>
-      <Route path="/" element={formOpen ? <Form /> : <Closed />}/>
-      <Route path="/admin" element={<Admin/>}/>
-      <Route path="/recruitments" element={<RecruitmentPanel/>}/>
-      <Route path="/cq" element={<CQPanel/>}/>
+      <Route exact path="/" element={formOpen ? <Form /> : <Closed />}/>
+      <Route exact path="/admin" element={<Admin/>}/>
+      <Route exact path="/recruitments" element={<RecruitmentPanel/>}/>
+      <Route exact path="/cq" element={<CQPanel/>}/>
     </Routes>
     </>
   )

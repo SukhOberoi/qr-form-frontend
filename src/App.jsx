@@ -17,6 +17,7 @@ export default function App() {
       <Route exact path="/admin" element={<Admin/>}/>
       <Route exact path="/recruitments" element={<RecruitmentPanel/>}/>
       <Route exact path="/cq" element={<CQPanel/>}/>
+      <Route exact path="*" component={() => <Redirect to={"/"} />} />
     </Routes>
     </>
   )

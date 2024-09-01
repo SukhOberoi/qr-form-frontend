@@ -39,7 +39,8 @@ const CQPanel = () => {
 
     try {
       const response = await fetch(`https://form-response-server-production.up.railway.app/team/${teamId}`);
-      const data = await response.json().members;
+      let data = await response.json();
+      data = data.members
       setTeamMembers((prev) => ({ ...prev, [teamId]: data }));
     } catch (error) {
       console.error("Error fetching team members:", error);

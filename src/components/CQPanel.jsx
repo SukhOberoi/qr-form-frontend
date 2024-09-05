@@ -20,10 +20,12 @@ const CQPanel = () => {
 
         // Sort RSVP'd teams to the top
         const sortedTeams = data.sort((a, b) => {
-          if (a.rsvp && !b.rsvp) return -1;
-          if (!a.rsvp && b.rsvp) return 1;
+          if (a.rsvp === true && b.rsvp !== true) return -1;
+          if (a.rsvp === false && b.rsvp !== false) return b.rsvp === true ? 1 : -1;
+          if (a.rsvp === undefined && b.rsvp !== undefined) return 1;
           return 0;
         });
+
 
         setTeams(sortedTeams);
         setLoading(false);
@@ -89,13 +91,18 @@ const CQPanel = () => {
               teams.map((team, index) => (
                 <div
                   key={team.id}
-                  className={`mb-4 ${team.rsvp ? "bg-green-100" : "bg-gray-200"}`}
+                  className={`mb-4 ${
+                    team.rsvp === true ? "bg-green-100" : team.rsvp === false ? "bg-red-100" : "bg-gray-200"
+                  }`}
                 >
                   <button
                     onClick={() => handleToggle(team.id)}
-                    className={`w-full px-4 py-2 text-left text-gray-700 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 ${team.rsvp ? "bg-green-200" : ""}`}
+                    className={`w-full px-4 py-2 text-left text-gray-700 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 ${
+                      team.rsvp === true ? "bg-green-200" : team.rsvp === false ? "bg-red-200" : ""
+                    }`}
                   >
-                    {index + 1}) <span className="font-semibold">{team.teamName}</span> - {team.teamSize} Members {team.rsvp ? "(RSVP'd)" : ""}
+                    {index + 1}) <span className="font-semibold">{team.teamName}</span> - {team.teamSize} Members{" "}
+                    {team.rsvp === true ? "(RSVP'd Yes)" : team.rsvp === false ? "(RSVP'd No)" : ""}
                   </button>
                   {activeTeamId === team.id && (
                     <div className="p-4 mt-2 rounded-md bg-gray-50">
@@ -109,15 +116,23 @@ const CQPanel = () => {
                             {teamMembers[team.id].map((member) => (
                               <li key={member.id} className="py-2">
                                 <strong>{member.name}</strong> <br />
-                                <a href={`mailto:${member.email}`} target="_blank" rel="noopener noreferrer"> {member.email}</a><br />
-                                {member.phoneNo}<br />
-                                {member.regNo}<br />
-                                {member.department}<br />
+                                <a href={`mailto:${member.email}`} target="_blank" rel="noopener noreferrer">
+                                  {" "}
+                                  {member.email}
+                                </a>
+                                <br />
+                                {member.phoneNo}
+                                <br />
+                                {member.regNo}
+                                <br />
+                                {member.department}
+                                <br />
                                 <a href={`https://wa.me/+91${member.phoneNo}`} target="_blank" rel="noopener noreferrer">
                                   <button className="w-1/2 px-4 py-2 my-2 font-semibold text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     WhatsApp
                                   </button>
-                                </a><br />
+                                </a>
+                                <br />
                               </li>
                             ))}
                           </ul>
